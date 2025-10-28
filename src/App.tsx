@@ -8,7 +8,7 @@ import DeleteConfirmation from "./components/DeleteConfirmation.tsx";
 import { sortPlacesByDistance } from "./loc.ts";
 
 const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
-const storedPlaces = storedIds.map((id) =>
+const storedPlaces = storedIds.map((id: string) =>
   AVAILABLE_PLACES.find((place) => place.id === id)
 );
 
@@ -25,13 +25,16 @@ function App() {
         position.coords.latitude,
         position.coords.longitude
       );
+
       setAvailablePlaces(sortedPlaces);
     });
   }, []);
 
   function handleAddPlacesToWishList(id: string) {
-    setSelectedPlaces((prevSelectedPlaces: []) => {
-      if (prevSelectedPlaces.some((place) => place.id === id)) {
+    setSelectedPlaces((prevSelectedPlaces: unknown[]) => {
+      if (
+        prevSelectedPlaces.some((place) => (place as { id: string }).id === id)
+      ) {
         return prevSelectedPlaces;
       }
       const place = AVAILABLE_PLACES.find((place) => place.id === id);
@@ -48,7 +51,7 @@ function App() {
     console.log(storedIds);
   }
 
-  function handleSelectToRemoveFromWishList(id) {
+  function handleSelectToRemoveFromWishList(id: string) {
     setModalIsOpen(true);
     selectedPlaceRef.current = id;
   }
@@ -59,9 +62,9 @@ function App() {
 
   const handleConfirmRemovingPlaces = useCallback(
     function handleConfirmRemovingPlaces() {
-      setSelectedPlaces((prevSelectedPlaces: []) =>
+      setSelectedPlaces((prevSelectedPlaces: unknown[]) =>
         prevSelectedPlaces.filter(
-          (place) => place.id !== selectedPlaceRef.current
+          (place) => (place as { id: string }).id !== selectedPlaceRef.current
         )
       );
 
@@ -72,7 +75,7 @@ function App() {
       localStorage.setItem(
         "selectedPlaces",
         JSON.stringify(
-          storedIds.filter((id) => id !== selectedPlaceRef.current)
+          storedIds.filter((id: string) => id !== selectedPlaceRef.current)
         )
       );
     },

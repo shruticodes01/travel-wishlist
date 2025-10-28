@@ -1,8 +1,16 @@
 import { useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 
-export default function Modal({ open, children, onClose }) {
-  const dialogRef = useRef();
+export default function Modal({
+  open,
+  children,
+  onClose,
+}: {
+  open?: boolean;
+  children?: React.ReactNode;
+  onClose?: () => void;
+}) {
+  const dialogRef = useRef(null);
   useEffect(() => {
     if (open) {
       dialogRef.current.showModal();

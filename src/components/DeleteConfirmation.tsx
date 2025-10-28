@@ -2,7 +2,13 @@ import { useEffect } from "react";
 import ProgressBar from "./ProgressBar.tsx";
 
 const TIMER = 3000;
-export default function DeleteConfirmation({ onCancel, onConfirm }) {
+export default function DeleteConfirmation({
+  onCancel,
+  onConfirm,
+}: {
+  onCancel: () => void;
+  onConfirm: () => void;
+}) {
   useEffect(() => {
     console.log("TIMER SET");
 
