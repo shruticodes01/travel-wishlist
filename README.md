@@ -1,3 +1,10 @@
+# React Project to learn useEffect hook 
+This project is created based on the Udemy course by Maximilian Schwarzmüller. 
+Learnings conclude:
+- What are side effects and when to use useEffect hook
+- What are dependencies
+- Using useCallback hook when useEffect has functions as dependencies to avoid recreation of that function object, 
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
