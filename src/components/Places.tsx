@@ -20,8 +20,6 @@ export default function PlacesCollection({
       {(places as []).length > 0 && (
         <ul className="max-w-[80rem] grid grid-cols-[repeat(auto-fill,_minmax(18rem,_1fr))] gap-[2rem] mx-[2rem] my-auto list-none">
           {(places as []).map((place: object, i: number) => {
-            console.log(place);
-
             let buttonHoverClasses;
             if (i % 2 === 0) {
               buttonHoverClasses = "hover:rotate-[5deg] focus:rotate-[5deg]";

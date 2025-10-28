@@ -22,11 +22,39 @@ function calculateDistance(
   return d;
 }
 
-export function sortPlacesByDistance(places: [], lat: number, lon: number) {
+type Place = {
+  id: string;
+  title: string;
+  image: {
+    src: string;
+    alt: string;
+  };
+  lat: number;
+  lon: number;
+};
+
+export function sortPlacesByDistance(
+  places: Place[],
+  lat: number,
+  lon: number
+) {
   const sortedPlaces = [...places];
+
   sortedPlaces.sort((a, b) => {
-    const distanceA = calculateDistance(lat, lon, a.lat, a.lon);
-    const distanceB = calculateDistance(lat, lon, b.lat, b.lon);
+    console.log(a, b);
+
+    const distanceA = calculateDistance(
+      lat,
+      lon,
+      (a as { lat: number }).lat,
+      (a as { lon: number }).lon
+    );
+    const distanceB = calculateDistance(
+      lat,
+      lon,
+      (b as { lat: number }).lat,
+      (b as { lon: number }).lon
+    );
     return distanceA - distanceB;
   });
   return sortedPlaces;

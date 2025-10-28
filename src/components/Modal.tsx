@@ -10,12 +10,12 @@ export default function Modal({
   children?: React.ReactNode;
   onClose?: () => void;
 }) {
-  const dialogRef = useRef(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
   useEffect(() => {
     if (open) {
-      dialogRef.current.showModal();
+      dialogRef.current?.showModal();
     } else {
-      dialogRef.current.close();
+      dialogRef.current?.close();
     }
   }, [open]);
 
@@ -27,6 +27,6 @@ export default function Modal({
     >
       {open ? children : null}
     </dialog>,
-    document.getElementById("root-modal")
+    document.getElementById("root-modal") as HTMLElement
   );
 }

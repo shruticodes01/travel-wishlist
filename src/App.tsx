@@ -7,15 +7,29 @@ import PlacesCollection from "./components/Places";
 import DeleteConfirmation from "./components/DeleteConfirmation.tsx";
 import { sortPlacesByDistance } from "./loc.ts";
 
-const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+type Place = {
+  id: string;
+  title: string;
+  image: {
+    src: string;
+    alt: string;
+  };
+  lat: number;
+  lon: number;
+};
+
+const storedIds =
+  JSON.parse(localStorage.getItem("selectedPlaces") as string) || [];
 const storedPlaces = storedIds.map((id: string) =>
   AVAILABLE_PLACES.find((place) => place.id === id)
 );
 
+console.log(storedPlaces);
+
 function App() {
   const selectedPlaceRef = useRef("");
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [availablePlaces, setAvailablePlaces] = useState([]);
+  const [availablePlaces, setAvailablePlaces] = useState<Place[]>([]);
   const [selectedPlaces, setSelectedPlaces] = useState(storedPlaces);
 
   useEffect(() => {
@@ -41,7 +55,8 @@ function App() {
       return [place, ...prevSelectedPlaces];
     });
 
-    const storedIds = JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+    const storedIds =
+      JSON.parse(localStorage.getItem("selectedPlaces") as string) || [];
     if (storedIds.indexOf(id) === -1) {
       localStorage.setItem(
         "selectedPlaces",
@@ -71,7 +86,7 @@ function App() {
       setModalIsOpen(false);
 
       const storedIds =
-        JSON.parse(localStorage.getItem("selectedPlaces")) || [];
+        JSON.parse(localStorage.getItem("selectedPlaces") as string) || [];
       localStorage.setItem(
         "selectedPlaces",
         JSON.stringify(
